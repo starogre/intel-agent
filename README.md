@@ -1,46 +1,104 @@
-# Getting Started with Create React App
+# Company Intelligence Enrichment Agent
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React-based application that leverages AI to gather and analyze comprehensive company information from multiple sources. The application provides detailed insights about companies, including their history, executive team, market position, and recent developments.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Real-time Company Information**: Fetch and display comprehensive company details including:
+  - Basic company information (name, website, industry, founding year)
+  - Executive team profiles with LinkedIn integration
+  - Company history and key milestones
+  - Market position and competitive landscape
+  - Recent news and developments
 
-### `npm start`
+- **Multi-Source Data**: Aggregates information from various sources including:
+  - Company websites
+  - LinkedIn profiles
+  - News articles
+  - Business databases
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **AI-Powered Analysis**: Uses OpenAI's GPT-4 to:
+  - Process and structure raw data
+  - Extract relevant information
+  - Provide contextual insights
+  - Generate comprehensive company profiles
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Tech Stack
 
-### `npm test`
+- **Frontend**:
+  - React
+  - TypeScript
+  - CSS3 with modern styling
+  - Axios for API requests
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Backend**:
+  - Node.js
+  - Express.js
+  - OpenAI API (GPT-4)
+  - SerpAPI for web search
 
-### `npm run build`
+- **Development Tools**:
+  - Git for version control
+  - npm for package management
+  - Concurrent development server
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Setup Instructions
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/starogre/intel-agent.git
+   cd intel-agent
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-### `npm run eject`
+3. Create a `.env` file in the root directory with your API keys:
+   ```
+   REACT_APP_OPENAI_API_KEY=your_openai_api_key
+   REACT_APP_SERPAPI_API_KEY=your_serpapi_key
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The application will be available at `http://localhost:3000`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Usage
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+1. Enter a company name in the search bar
+2. The application will:
+   - Fetch basic company information
+   - Gather executive team details
+   - Collect company background and history
+   - Display all information in a structured format
 
-## Learn More
+## Project Structure
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+intel-agent/
+├── src/
+│   ├── components/     # React components
+│   ├── utils/         # Utility functions
+│   ├── App.tsx        # Main application component
+│   └── index.tsx      # Application entry point
+├── server.js          # Express backend server
+├── package.json       # Project dependencies
+└── README.md         # Project documentation
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
