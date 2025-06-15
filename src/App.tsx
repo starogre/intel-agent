@@ -22,6 +22,7 @@ interface CompanyInfo {
   'Headquarters location'?: string;
   'Brief description'?: string;
   'Company size'?: string | null;
+  logo?: string | null;
 }
 
 interface CompanyBackground {
@@ -201,6 +202,11 @@ function App() {
         <div className="info-grid">
           <div className="info-card">
             <h2>Company Information</h2>
+            {companyInfo.logo && (
+              <div className="company-logo">
+                <img src={companyInfo.logo} alt={`${companyInfo['Official company name'] || companyInfo.name} logo`} />
+              </div>
+            )}
             <p><strong>Name:</strong> {companyInfo['Official company name'] || companyInfo.name || 'Not available'}</p>
             <p><strong>Website:</strong> {companyInfo['Website URL'] || companyInfo.website || 'Not available'}</p>
             <p><strong>Industry:</strong> {companyInfo.Industry || companyInfo.industry || 'Not available'}</p>

@@ -79,6 +79,47 @@ async function scrapeCompanyWebsite(url) {
   }
 }
 
+// Add proxy endpoint for company logos
+app.get('/api/logo', async (req, res) => {
+  try {
+    const { url } = req.query;
+    if (!url) {
+      return res.status(400).json({ error: 'URL parameter is required' });
+    }
+
+    const response = await axios.get(url, {
+      responseType: 'arraybuffer'
+    });
+
+    res.set('Content-Type', response.headers['content-type']);
+    res.send(response.data);
+  } catch (error) {
+    console.error('Error proxying logo:', error);
+    res.status(500).json({ error: 'Failed to fetch logo' });
+  }
+});
+
+// Update getCompanyLogo function to return the proxied URL
+async function getCompanyLogo(companyName) {
+  try {
+    console.log(`Fetching logo for ${companyName} from Clearbit`);
+    const clearbitUrl = `https://logo.clearbit.com/${companyName.toLowerCase().replace(/\s+/g, '')}.com`;
+    
+    // Verify the logo exists by making a HEAD request
+    const response = await axios.head(clearbitUrl);
+    if (response.status === 200) {
+      // Return the proxied URL instead of the direct Clearbit URL
+      const proxiedUrl = `http://localhost:3001/api/logo?url=${encodeURIComponent(clearbitUrl)}`;
+      console.log(`Found logo URL: ${proxiedUrl}`);
+      return proxiedUrl;
+    }
+    return null;
+  } catch (error) {
+    console.error('Error fetching company logo:', error);
+    return null;
+  }
+}
+
 // Update the system prompts to ensure consistent data format
 const SYSTEM_PROMPTS = {
   basic: `You are a company information expert. Extract and structure the following information from the search results:
@@ -237,7 +278,7 @@ app.post('/api/search', async (req, res) => {
     console.log(`Found ${googleResults.data.organic_results?.length || 0} Google results`);
     console.log(`Found ${newsResults.data.organic_results?.length || 0} news results`);
     console.log(`Found ${linkedinResults.data.organic_results?.length || 0} LinkedIn results`);
-    
+
     // Combine and deduplicate results
     const allResults = [
       ...(googleResults.data.organic_results || []),
@@ -283,16 +324,27 @@ app.post('/api/search', async (req, res) => {
             exec.profileImage = await getLinkedInProfileImage(exec.linkedin_url);
           }
         }
-        processedResult = JSON.stringify(executives);
       } catch (error) {
         console.error('Error processing executive images:', error);
+      }
+    }
+
+    // If this is basic info, try to get the company logo
+    if (type === 'basic') {
+      try {
+        const logoUrl = await getCompanyLogo(query);
+        if (logoUrl) {
+          processedResult.logo = logoUrl;
+        }
+      } catch (error) {
+        console.error('Error fetching company logo:', error);
       }
     }
 
     // Log the final processed result
     console.log(`Final processed result for ${type}:`, processedResult);
 
-    res.json({ 
+    res.json({
       results: allResults,
       processed: processedResult,
       websiteContent: websiteContent

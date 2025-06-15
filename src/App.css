@@ -246,3 +246,29 @@
     grid-template-columns: 1fr;
   }
 }
+
+.company-logo {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  padding: 20px;
+  background: #1a1a1a;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.company-logo img {
+  max-width: 200px;
+  max-height: 100px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  background: white;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.company-logo img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
