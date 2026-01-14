@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@langchain/core": "^0.3.58",
-    "axios": "^1.10.0",
+    "axios": "^1.11.0",
     "concurrently": "^8.2.2",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
