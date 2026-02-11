@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@langchain/community": "^0.3.46",
+    "@langchain/community": "^1.1.14",
     "@langchain/openai": "^0.0.14",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
